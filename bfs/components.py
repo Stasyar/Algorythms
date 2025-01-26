@@ -2,14 +2,7 @@ import sys
 from collections import defaultdict, deque
 
 
-def make_graph(data, m):
-    connected_ver = set(sum(data, []))
-    all_ver = set([i for i in range(1, m + 1)])
-    unconnected_ver = all_ver - connected_ver
-
-    for i in unconnected_ver:
-        data.append([i, i])
-
+def make_graph(data):
     graph = defaultdict(list)
 
     for i, j in data:
@@ -19,18 +12,7 @@ def make_graph(data, m):
     return graph
 
 
-def dfs(graph, start, visited=None):
-    # if not visited:
-    #     visited = []
-    #
-    # if start not in visited:
-    #     visited.append(start)
-    #
-    #     for next in graph.get(start):
-    #         dfs(graph, next, visited)
-    #
-    # return visited
-
+def bfs(graph, start, visited=None):
     queue = deque([start])
     component = []
 
@@ -50,7 +32,7 @@ def find_all_components(graph, m):
 
     for v in range(1, m + 1):
         if v not in visited:
-            component = dfs(graph, v, visited)
+            component = bfs(graph, v, visited)
             components.append(sorted(component))
 
     return components
@@ -65,7 +47,7 @@ def main():
 
     data = [list(map(int, line.split())) for line in data[1:]]
 
-    graph = make_graph(data, m)
+    graph = make_graph(data)
     components = find_all_components(graph, m)
 
     result_list = [[len(components)]]
