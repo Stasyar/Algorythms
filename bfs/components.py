@@ -1,8 +1,10 @@
+""" Not the best way to find components. DFS works perfect for such purposes. Here is my first try."""
 import sys
 from collections import defaultdict, deque
 
 
 def make_graph(data):
+    """Parse data from stdin to make graph"""
     graph = defaultdict(list)
 
     for i, j in data:
@@ -13,7 +15,8 @@ def make_graph(data):
 
 
 def bfs(graph, start, visited=None):
-    queue = deque([start])
+    """BFS algorythm itself"""
+    queue = deque([start])  # Much faster and more convenient than list
     component = []
 
     while queue:
@@ -27,6 +30,7 @@ def bfs(graph, start, visited=None):
 
 
 def find_all_components(graph, m):
+    """Function to go through all vertex in a graph"""
     visited = set()
     components = []
 
@@ -39,11 +43,12 @@ def find_all_components(graph, m):
 
 
 def main():
+    """Bgi function again for parsing data mostly"""
     # mock_data = [[3, 1], [1, 2], [5, 4], [2, 3]]
     # mock_m = 6
     # mock_n = 4
     data = sys.stdin.readlines()
-    m, n = map(int, data[0].split())
+    m, n = map(int, data[0].split())  # Don't actually know why I need n which stands for edge
 
     data = [list(map(int, line.split())) for line in data[1:]]
 
